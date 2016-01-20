@@ -54,8 +54,9 @@ function connectStream(TeamItem) {
     //add event listener to listen for updates on current url
     TeamItem.info.addEventListener('patch', function(patch) {
          var item = JSON.parse(patch.data);
-       
-
+            
+         for (var j = 0; j < item.length; j++){
+            item = item[j];
             if (item.op == "add") {
                 var myFirebaseRef = new Firebase('https://articleserver.firebaseio.com/' + TeamName);
                 //push update to database
@@ -63,7 +64,7 @@ function connectStream(TeamItem) {
                 myFirebaseRef.push(item.value);
                 console.log(TeamName + " " + item.value);
             } 
-        
+        }
         console.log(item);
 
     });
